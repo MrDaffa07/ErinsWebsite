@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mau Jadi Pacarku? ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1 class="title">Pertanyaan Penting 💕</h1>
+            
+            <div class="question-section">
+                <div class="big-heart">💖</div>
+                <h2 class="main-question">Mau jadi pacarku?</h2>
+                <p class="sub-question">Aku sudah tidak tahan lagi untuk tidak mengatakannya... 😊</p>
+            </div>
+            
+            <div class="buttons-container">
+                <button class="btn-yes" onclick="window.location.href='yes.html'">
+                    Mau 😍
+                </button>
+                <button class="btn-no" id="noBtn">
+                    Tidak 😔
+                </button>
+            </div>
+            
+            <div class="cute-text">
+                <p>Pilih yang "Mau" ya sayang... 🥺</p>
+            </div>
+        </div>
+        
+        <!-- Floating hearts background -->
+        <div class="floating-hearts">
+            <div class="floating-heart">💖</div>
+            <div class="floating-heart">💕</div>
+            <div class="floating-heart">💗</div>
+            <div class="floating-heart">💓</div>
+            <div class="floating-heart">💝</div>
+            <div class="floating-heart">💘</div>
+            <div class="floating-heart">💞</div>
+            <div class="floating-heart">💌</div>
+        </div>
+    </div>
+
+    <script src="assets/script.js"></script>
+    <script>
+        // Tombol kabur functionality
+        const noBtn = document.getElementById('noBtn');
+        let clickCount = 0;
+        
+        noBtn.addEventListener('mouseenter', () => {
+            moveButton();
+        });
+        
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            clickCount++;
+            
+            if (clickCount >= 5) {
+                // Setelah 5 kali klik, baru bisa ke no.html
+                window.location.href = 'no.html';
+            } else {
+                moveButton();
+                // Tambahkan teks lucu
+                showFunnyText();
+            }
+        });
+        
+        function moveButton() {
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            
+            // Generate random position
+            const maxX = containerRect.width - noBtn.offsetWidth - 50;
+            const maxY = containerRect.height - noBtn.offsetHeight - 50;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            noBtn.style.transition = 'all 0.3s ease-out';
+        }
+        
+        function showFunnyText() {
+            const funnyTexts = [
+                "Eh gabisa gitu dong! 😅",
+                "Coba lagi deh... 🤭",
+                "Yakin nih? 🥺",
+                "Jangan gitu dong sayang... 💔",
+                "Satu kali lagi ya... 😢"
+            ];
+            
+            const cuteText = document.querySelector('.cute-text p');
+            cuteText.textContent = funnyTexts[Math.min(clickCount - 1, funnyTexts.length - 1)];
+            cuteText.style.animation = 'shake 0.5s ease-in-out';
+            
+            setTimeout(() => {
+                cuteText.style.animation = '';
+            }, 500);
+        }
+        
+        // Animasi masuk
+        setTimeout(() => {
+            const questionSection = document.querySelector('.question-section');
+            questionSection.style.opacity = '0';
+            questionSection.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                questionSection.style.transition = 'all 0.8s ease-out';
+                questionSection.style.opacity = '1';
+                questionSection.style.transform = 'scale(1)';
+            }, 100);
+        }, 200);
+    </script>
+</body>
+</html>

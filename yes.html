@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeay, Erin Jadi Pacarku! ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    <!-- Fallback style kalau CSS eksternal gagal -->
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffffff 100%);
+            text-align: center;
+        }
+        .memory-image img, .memory-image video {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 17px;
+            opacity: 1 !important;
+            filter: none !important;
+            background: transparent !important;
+        }
+        .celebration-section:hover .big-heart {
+            animation: heartbeat 1s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1 class="title celebration">YEAY, KAMU MAU, ERIN! 🎉</h1>
+            
+            <div class="celebration-section">
+                <div class="big-heart celebration">💖</div>
+                <h2 class="celebration-text">Kamu Bikin Aku Bahagia Banget!</h2>
+                <p class="celebration-subtitle">Dari les bareng sampe jadi pacarku, kamu luar biasa!</p>
+                
+            <div class="memory-image">
+                        <video controls>
+                            <source src="assets/videos/aselole.mp4" type="video/mp4">
+                            Browser kamu nggak support video ini.
+                        </video>
+                    </div>
+                
+                <div class="celebration-message">
+                    <p>Erin, makasih udah bilang “Mau” jadi pacarku! Aku masih inget kaku-kaku di les, ketawa bareng di kafe, sampe deg-degan ketemu papa kamu. Sekarang kita resmi bareng, aku janji bakal jaga kamu, walaupun LDR Surabaya-Bekasi.</p>
+                    <p>Tiap momen sama kamu bikin aku ngerasa kayak di awan. Aku kangen tawa bocilmu, dan aku nggak sabar balik ke Surabaya buat ngafe lagi sama kamu. Aku sayang banget sama kamu, Erin! 💕</p>
+                </div>
+                
+                <div class="celebration-emojis">
+                    <span class="emoji bounce">🎊</span>
+                    <span class="emoji bounce">💖</span>
+                    <span class="emoji bounce">🎉</span>
+                    <span class="emoji bounce">💕</span>
+                    <span class="emoji bounce">🥳</span>
+                </div>
+            </div>
+            
+            <button class="btn-primary celebration" onclick="window.location.href='kenangan.html'">
+                Lihat Lagi Kenangan Kita 💕
+            </button>
+        </div>
+        
+        <!-- Canvas untuk confetti -->
+        <canvas id="confettiCanvas"></canvas>
+        
+        <!-- Floating hearts background -->
+        <div class="floating-hearts celebration">
+            <div class="floating-heart">💖</div>
+            <div class="floating-heart">💕</div>
+            <div class="floating-heart">💗</div>
+            <div class="floating-heart">💓</div>
+            <div class="floating-heart">💝</div>
+            <div class="floating-heart">💘</div>
+            <div class="floating-heart">💞</div>
+            <div class="floating-heart">💌</div>
+            <div class="floating-heart">🎉</div>
+            <div class="floating-heart">🎊</div>
+        </div>
+    </div>
+
+    <audio id="celebrationMusic" loop>
+        <source src="assets/celebration.mp3" type="audio/mpeg">
+        Browser kamu nggak support audio ini.
+    </audio>
+
+    <script>
+        // Confetti Animation
+        const canvas = document.getElementById('confettiCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const confettiPieces = [];
+        const colors = ['#ff6b81', '#a0e7e5', '#f9c5d1', '#ffd93d', '#6c5ce7', '#fd79a8'];
+        
+        class ConfettiPiece {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - canvas.height;
+                this.w = Math.random() * 10 + 5;
+                this.h = Math.random() * 10 + 5;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.speed = Math.random() * 3 + 2;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 5 + 2;
+            }
+            
+            update() {
+                this.y += this.speed;
+                this.rotation += this.rotationSpeed;
+                
+                if (this.y > canvas.height) {
+                    this.y = -this.h;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            
+            draw() {
+                ctx.save();
+                ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
+                ctx.restore();
+            }
+        }
+        
+        // Create confetti pieces
+        for (let i = 0; i < 100; i++) {
+            confettiPieces.push(new ConfettiPiece());
+        }
+        
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            confettiPieces.forEach(piece => {
+                piece.update();
+                piece.draw();
+            });
+            
+            requestAnimationFrame(animateConfetti);
+        }
+        
+        animateConfetti();
+        
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Auto play celebration music
+        window.addEventListener('load', () => {
+            const celebrationMusic = document.getElementById('celebrationMusic');
+            celebrationMusic.volume = 0.4;
+            celebrationMusic.play().catch(e => console.log('Auto-play prevented'));
+        });
+        
+        // Celebration animations
+        setTimeout(() => {
+            const celebrationElements = document.querySelectorAll('.celebration');
+            celebrationElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'scale(0.5)';
+                setTimeout(() => {
+                    element.style.transition = 'all 0.8s ease-out';
+                    element.style.opacity = '1';
+                    element.style.transform = 'scale(1)';
+                }, index * 200);
+            });
+        }, 200);
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Kamu ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1 class="title">Hai Amorella... 💕</h1>
+            <div class="typing-container">
+                <p class="typing-text" id="typingText"></p>
+            </div>
+            <div class="heart-animation">
+                <div class="heart">❤️</div>
+            </div>
+            <button class="btn-primary" id="continueBtn" style="display: none;">
+                Lanjutkan 💌
+            </button>
+        </div>
+        
+        <div class="floating-hearts">
+            <div class="floating-heart">💖</div>
+            <div class="floating-heart">💕</div>
+            <div class="floating-heart">💗</div>
+            <div class="floating-heart">💓</div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="assets/bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="assets/script.js"></script>
+    <script>
+        // Typing effect untuk halaman index
+        const texts = [
+            "Ada yang pengen aku sampaikan...",
+            "Hihi udah tau dong mau ngapain...",
+            "Semoga kamu mau mendengarkan ceritaku..."
+        ];
+        
+        let textIndex = 0;
+        let charIndex = 0;
+        const typingElement = document.getElementById('typingText');
+        const continueBtn = document.getElementById('continueBtn');
+        
+        function typeText() {
+            if (textIndex < texts.length) {
+                if (charIndex < texts[textIndex].length) {
+                    typingElement.textContent += texts[textIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeText, 50);
+                } else {
+                    setTimeout(() => {
+                        textIndex++;
+                        charIndex = 0;
+                        typingElement.textContent = '';
+                        if (textIndex < texts.length) {
+                            typeText();
+                        } else {
+                            continueBtn.style.display = 'block';
+                            continueBtn.style.animation = 'fadeIn 1s ease-in-out';
+                        }
+                    }, 1500);
+                }
+            }
+        }
+        
+        // Mulai typing effect
+        setTimeout(typeText, 1000);
+        
+        // Event listener untuk tombol continue
+        continueBtn.addEventListener('click', () => {
+            window.location.href = 'kenangan.html';
+        });
+        
+        // Auto play background music
+        window.addEventListener('load', () => {
+            const bgMusic = document.getElementById('bgMusic');
+            bgMusic.volume = 0.3;
+            bgMusic.play().catch(e => console.log('Auto-play prevented'));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huhu... 😭</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1 class="title sad">Huhu... 😭</h1>
+            
+            <div class="sad-section">
+                <div class="big-heart sad">💔</div>
+                <h2 class="sad-text">Kok tega sih?</h2>
+                <p class="sad-subtitle">Tapi aku masih sayang... 🥺</p>
+                
+                <div class="sad-message">
+                    <p>Aku kecewa sih... tapi gapapa 😢</p>
+                    <p>Mungkin kamu belum siap, atau mungkin aku kurang baik? 💔</p>
+                    <p>Tapi aku tetap berharap suatu hari nanti kamu mau... 🙏</p>
+                </div>
+                
+                <div class="funny-section">
+                    <p class="funny-text">Atau... mungkin kamu salah pencet? 😏</p>
+                    <p class="funny-text">Coba klik tombol di bawah buat balik dan pikir ulang... 🤔</p>
+                </div>
+                
+                <div class="sad-emojis">
+                    <span class="emoji cry">😭</span>
+                    <span class="emoji cry">💔</span>
+                    <span class="emoji cry">😢</span>
+                    <span class="emoji cry">🥺</span>
+                    <span class="emoji cry">💧</span>
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="window.location.href='nembak.html'">
+                Balik Lagi 🔄
+            </button>
+            
+            <div class="hope-text">
+                <p>Aku akan selalu menunggu... 💕</p>
+            </div>
+        </div>
+        
+        <!-- Floating broken hearts -->
+        <div class="floating-hearts sad">
+            <div class="floating-heart">💔</div>
+            <div class="floating-heart">😭</div>
+            <div class="floating-heart">😢</div>
+            <div class="floating-heart">🥺</div>
+            <div class="floating-heart">💧</div>
+            <div class="floating-heart">😔</div>
+        </div>
+    </div>
+
+    <script src="assets/script.js"></script>
+    <script>
+        // Crying animation
+        function addTearDrops() {
+            const tearDrops = ['💧', '💧', '💧'];
+            const container = document.querySelector('.container');
+            
+            tearDrops.forEach((tear, index) => {
+                setTimeout(() => {
+                    const tearElement = document.createElement('div');
+                    tearElement.innerHTML = tear;
+                    tearElement.style.position = 'absolute';
+                    tearElement.style.left = Math.random() * window.innerWidth + 'px';
+                    tearElement.style.top = '0px';
+                    tearElement.style.fontSize = '24px';
+                    tearElement.style.animation = 'tearDrop 3s ease-in-out forwards';
+                    tearElement.style.pointerEvents = 'none';
+                    tearElement.style.zIndex = '1000';
+                    
+                    container.appendChild(tearElement);
+                    
+                    setTimeout(() => {
+                        tearElement.remove();
+                    }, 3000);
+                }, index * 500);
+            });
+        }
+        
+        // Start tear animation
+        setInterval(addTearDrops, 2000);
+        
+        // Sad animations
+        setTimeout(() => {
+            const sadElements = document.querySelectorAll('.sad-section > *');
+            sadElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    element.style.transition = 'all 0.8s ease-out';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 300);
+            });
+        }, 200);
+        
+        // Shake animation for crying emojis
+        const cryingEmojis = document.querySelectorAll('.emoji.cry');
+        cryingEmojis.forEach((emoji, index) => {
+            setTimeout(() => {
+                emoji.style.animation = 'shake 0.5s ease-in-out infinite';
+            }, index * 200);
+        });
+    </script>
+</body>
+</html>
